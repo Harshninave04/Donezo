@@ -4,13 +4,15 @@ const mongoose = require('mongoose');
 const PORT = 5000;
 const cors = require('cors');
 const authRoutes = require("./Routes/auth")
+const taskRoutes = require("./Routes/tasks")
 
 require('dotenv').config();
 
 // Middleware to parse JSON
 app.use(cors());
 app.use(express.json());
-app.use("/api/auth", authRoutes)
+app.use("/api/auth", authRoutes);
+app.use("/api/tasks", taskRoutes);
 
 // Connect to MongoDB
 mongoose

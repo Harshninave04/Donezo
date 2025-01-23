@@ -75,3 +75,5 @@ router.delete("/:id", authMiddleware, async (req, res) => {
         res.status(500).json({ message: 'Something went wrong' });
     }
 })
+
+module.exports = router;
