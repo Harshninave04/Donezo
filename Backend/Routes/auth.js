@@ -3,6 +3,7 @@ const User = require('../Models/User');
 const jwt = require("jsonwebtoken")
 const router = express.Router();
 
+// Signup Route
 router.post('/signup', async (req, res) => {
   const { username, email, password } = req.body;
 
@@ -25,5 +26,31 @@ router.post('/signup', async (req, res) => {
       res.status(500).json({ message: 'Something went wrong' });
   }
 });
+
+// Login Route
+
+router.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    const isMatch = await user.comparePassword(password);
+    if (!isMatch) {
+      return res.status(400).json({message: "Incorrect Password!"})
+    }
+
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
+
+    res.status(200).json({ user, token });
+
+  } catch (error) {
+    res.status(500).json({ message: 'Something went wrong' });
+  }
+})
 
 module.exports = router;
