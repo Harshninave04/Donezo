@@ -2,6 +2,7 @@ const express = require('express');
 const User = require('../Models/User');
 const jwt = require("jsonwebtoken")
 const router = express.Router();
+const authMiddleware = require("../Middleware/auth.middleware")
 
 // Signup Route
 router.post('/signup', async (req, res) => {
@@ -28,7 +29,6 @@ router.post('/signup', async (req, res) => {
 });
 
 // Login Route
-
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
@@ -51,6 +51,11 @@ router.post("/login", async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: 'Something went wrong' });
   }
+})
+
+router.get("/me", authMiddleware, async (req, res) => {
+  const user = await User.findById(req.userId).select("-password");
+  res.status(200).json(user);
 })
 
 module.exports = router;
