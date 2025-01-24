@@ -17,11 +17,8 @@ export default function Login() {
       navigate('/'); // Redirect to home page after successful login
     } catch (err) {
       // Handle specific error messages
-      if (err.response && err.response.status === 400) {
-        setError(err.response.data.message);
-      } else {
-        setError('Something went wrong. Please try again.');
-      }
+      
+      setError(err.message);
     }
   };
 
