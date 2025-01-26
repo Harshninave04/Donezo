@@ -6,16 +6,30 @@ export default function TaskForm({ onSubmit }) {
   const [description, setDescription] = useState('');
   const [dueDate, setDueDate] = useState('');
   const [priority, setPriority] = useState('medium');
-  const [status, setStatus] = useState('to-do');
+    const [status, setStatus] = useState('to-do');
+    const [error, setError] = useState('');
 
   // Handle form submission
   const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
-    onSubmit({ title, description, dueDate, priority, status }); // Pass form data to the parent component
+    e.preventDefault();
+
+    // Basic validation
+    if (!title || !description || !dueDate) {
+      setError('Please fill out all fields.');
+      return;
+    }
+
+    setError(''); // Clear previous errors
+    onSubmit({ title, description, dueDate, priority, status });
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      {error && (
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded mb-4">
+          {error}
+        </div>
+      )}
       {/* Title Field */}
       <div>
         <label className="block text-sm font-medium mb-2">Title</label>
