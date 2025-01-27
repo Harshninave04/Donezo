@@ -32,7 +32,7 @@ export default function TaskForm({ onSubmit }) {
       )}
       {/* Title Field */}
       <div>
-        <label className="block text-sm font-medium mb-2">Title</label>
+        <label className="block text-md font-medium mb-2">Title</label>
         <input
           type="text"
           value={title}
@@ -44,7 +44,7 @@ export default function TaskForm({ onSubmit }) {
 
       {/* Description Field */}
       <div>
-        <label className="block text-sm font-medium mb-2">Description</label>
+        <label className="block text-md font-medium mb-2">Description</label>
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
@@ -56,7 +56,7 @@ export default function TaskForm({ onSubmit }) {
 
       {/* Due Date Field */}
       <div>
-        <label className="block text-sm font-medium mb-2">Due Date</label>
+        <label className="block text-md font-medium mb-2">Due Date</label>
         <input
           type="date"
           value={dueDate}
@@ -68,7 +68,7 @@ export default function TaskForm({ onSubmit }) {
 
       {/* Priority Field */}
       <div>
-        <label className="block text-sm font-medium mb-2">Priority</label>
+        <label className="block text-md font-medium mb-2">Priority</label>
         <select
           value={priority}
           onChange={(e) => setPriority(e.target.value)}
@@ -81,7 +81,7 @@ export default function TaskForm({ onSubmit }) {
 
       {/* Status Field */}
       <div>
-        <label className="block text-sm font-medium mb-2">Status</label>
+        <label className="block text-md font-medium mb-2">Status</label>
         <select
           value={status}
           onChange={(e) => setStatus(e.target.value)}

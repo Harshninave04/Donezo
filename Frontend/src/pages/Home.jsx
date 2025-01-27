@@ -42,13 +42,13 @@ export default function Home() {
 
   return (
     <Layout>
-      <div className="pt-20">
+      <div className="py-28">
         {' '}
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-light">Welcome to Task Manager</h1>
           <Link
             to="/tasks/new"
-            className="bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition-colors">
+            className="bg-black text-white text-sm md:text-base px-2 py-2 md:px-4 md:py-2 rounded hover:bg-gray-800 transition-colors">
             Create Task
           </Link>
         </div>

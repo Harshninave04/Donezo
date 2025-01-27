@@ -29,8 +29,8 @@ export default function TaskFormPage() {
 
   return (
     <Layout>
-      <div className="pt-20">
-        <h1 className="text-2xl font-light mb-6">{id ? 'Edit Task' : 'Create Task'}</h1>
+      <div className="py-28">
+        <h1 className="text-4xl font-medium mb-6">{id ? 'Edit Task' : 'Create Task'}</h1>
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded mb-4">
             {error}
