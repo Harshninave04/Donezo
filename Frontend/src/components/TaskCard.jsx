@@ -1,7 +1,6 @@
 import React from 'react';
 
 export default function TaskCard({ task }) {
-  // Determine priority color based on priority level
   const getPriorityClass = (priority) => {
     switch (priority.toLowerCase()) {
       case 'high':
@@ -16,15 +15,15 @@ export default function TaskCard({ task }) {
   };
 
   return (
-    <div className="bg-white border-2 border-black rounded-xl shadow-[0_4px_10px_rgba(0,0,0,0.1)] hover:shadow-[0_6px_15px_rgba(0,0,0,0.15)] transition-all duration-300 ease-in-out">
+    <div className="bg-white border-2 border-black rounded-xl shadow-[0_4px_10px_rgba(0,0,0,0.1)] hover:shadow-[0_6px_15px_rgba(0,0,0,0.15)] transition-all duration-300 ease-in-out flex flex-col min-h-[200px]">
       <div className={`${getPriorityClass(task.priority)} px-4 py-2 rounded-t-xl`}>
         <h3 className="text-xl font-bold tracking-tight">{task.title}</h3>
       </div>
 
-      <div className="p-6">
-        <p className="text-gray-800 mb-4 text-base leading-relaxed">{task.description}</p>
+      <div className="p-6 flex flex-col flex-grow">
+        <p className="text-gray-800 mb-4 text-base leading-relaxed flex-grow">{task.description}</p>
 
-        <div className="space-y-3 border-t border-gray-200 pt-4">
+        <div className="space-y-3 border-t border-gray-200 pt-4 mt-auto">
           <div className="flex justify-between items-center">
             <span className="text-sm font-medium text-gray-600">Due Date</span>
             <span className="text-sm font-semibold text-black">
