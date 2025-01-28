@@ -1,6 +1,8 @@
 import React from 'react';
+import { Pencil, Trash2 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
-export default function TaskCard({ task }) {
+export default function TaskCard({ task, onDelete }) {
   const getPriorityClass = (priority) => {
     switch (priority.toLowerCase()) {
       case 'high':
@@ -14,10 +16,31 @@ export default function TaskCard({ task }) {
     }
   };
 
+  const handleEdit = () => {
+    navigate(`/tasks/${task._id}/edit`);
+  };
+
   return (
-    <div className="bg-white border-2 border-black rounded-xl shadow-[0_4px_10px_rgba(0,0,0,0.1)] hover:shadow-[0_6px_15px_rgba(0,0,0,0.15)] transition-all duration-300 ease-in-out flex flex-col min-h-[200px]">
-      <div className={`${getPriorityClass(task.priority)} px-4 py-2 rounded-t-xl`}>
+    <div className="bg-white border-2 border-black rounded-xl shadow-[0_4px_10px_rgba(0,0,0,0.1)] hover:shadow-[0_6px_15px_rgba(0,0,0,0.15)] transition-all duration-300 ease-in-out flex flex-col min-h-[200px] relative">
+      <div
+        className={`${getPriorityClass(
+          task.priority,
+        )} px-4 py-2 rounded-t-xl flex justify-between items-center`}>
         <h3 className="text-xl font-bold tracking-tight">{task.title}</h3>
+        <div className="flex items-center space-x-2">
+          <button
+            onClick={handleEdit}
+            className="p-1 hover:bg-black/20 rounded-full transition-colors duration-200"
+            aria-label="Edit task">
+            <Pencil size={18} />
+          </button>
+          <button
+            onClick={onDelete}
+            className="p-1 hover:bg-black/20 rounded-full transition-colors duration-200"
+            aria-label="Delete task">
+            <Trash2 size={18} />
+          </button>
+        </div>
       </div>
 
       <div className="p-6 flex flex-col flex-grow">
