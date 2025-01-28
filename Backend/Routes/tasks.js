@@ -35,6 +35,19 @@ router.get("/", authMiddleware, async (req, res) => {
     }
 })
 
+// Get a single task by ID
+router.get("/:id", authMiddleware, async (req, res) => {
+    try {
+        const task = await Task.findOne({ _id: req.params.id, createdBy: req.userId });
+        if (!task) {
+            return res.status(404).json({ message: "Task not found" });
+        }
+        res.status(200).json(task);
+    } catch (error) {
+        res.status(500).json({ message: "Something went wrong" });
+    }
+});
+
 // Update a task
 router.put("/:id", authMiddleware, async (req, res) => {
     const { title, description, dueDate, priority, status, assignedTo } = req.body;
