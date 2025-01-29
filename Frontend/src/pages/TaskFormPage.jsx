@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { createTask, updateTask } from '../services/taskService';
+import { createTask, updateTask, fetchTasksById } from '../services/taskService';
 import TaskForm from '../components/TaskForm';
 import Layout from '../components/Layout';
 
@@ -10,6 +10,23 @@ export default function TaskFormPage() {
   const { user } = useAuth(); // Get the authenticated user
   const navigate = useNavigate(); // For navigation
   const [error, setError] = useState(''); // For error handling
+  const [initialData, setInitialData] = useState(null); // Initial form data
+
+  // Fetch task data if editing
+  useEffect(() => {
+    if (id) {
+      const fetchTask = async () => {
+        try {
+          const task = await fetchTasksById(id);
+          setInitialData(task);
+        } catch (err) {
+          setError(err.message);
+        }
+      };
+
+      fetchTask();
+    }
+  }, [id]);
 
   // Handle form submission
   const handleSubmit = async (task) => {
@@ -37,7 +54,7 @@ export default function TaskFormPage() {
           </div>
         )}
         {/* Render the TaskForm component */}
-        <TaskForm onSubmit={handleSubmit} />
+        <TaskForm onSubmit={handleSubmit} initialData={initialData} />
       </div>
     </Layout>
   );

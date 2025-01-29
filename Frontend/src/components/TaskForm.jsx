@@ -1,13 +1,24 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-export default function TaskForm({ onSubmit }) {
+export default function TaskForm({ onSubmit, initialData }) {
   // State for form fields
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [dueDate, setDueDate] = useState('');
-  const [priority, setPriority] = useState('medium');
-    const [status, setStatus] = useState('to-do');
-    const [error, setError] = useState('');
+  const [title, setTitle] = useState(initialData?.title || '');
+  const [description, setDescription] = useState(initialData?.description || '');
+  const [dueDate, setDueDate] = useState(initialData?.dueDate || '');
+  const [priority, setPriority] = useState(initialData?.priority || 'medium');
+  const [status, setStatus] = useState(initialData?.status || 'to-do');
+  const [error, setError] = useState('');
+
+  // Update form fields when initialData changes
+  useEffect(() => {
+    if (initialData) {
+      setTitle(initialData.title);
+      setDescription(initialData.description);
+      setDueDate(initialData.dueDate);
+      setPriority(initialData.priority);
+      setStatus(initialData.status);
+    }
+  }, [initialData]);
 
   // Handle form submission
   const handleSubmit = (e) => {

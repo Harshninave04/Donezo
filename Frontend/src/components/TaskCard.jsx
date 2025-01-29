@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Pencil, Trash2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,6 +16,8 @@ export default function TaskCard({ task, onDelete }) {
         return 'bg-gray-200 text-black';
     }
   };
+
+  const navigate = useNavigate();
 
   const handleEdit = () => {
     navigate(`/tasks/${task._id}/edit`);
@@ -73,3 +76,15 @@ export default function TaskCard({ task, onDelete }) {
     </div>
   );
 }
+
+TaskCard.propTypes = {
+  task: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    dueDate: PropTypes.string.isRequired,
+    priority: PropTypes.string.isRequired,
+    status: PropTypes.string.isRequired,
+  }).isRequired,
+  onDelete: PropTypes.func.isRequired,
+};
