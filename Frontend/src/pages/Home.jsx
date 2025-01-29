@@ -40,6 +40,10 @@ export default function Home() {
     );
   }
 
+  const handleDeleteTask = (taskId) => {
+    setTasks(tasks.filter((task) => task._id !== taskId));
+  };
+
   return (
     <Layout>
       <div className="py-28">
@@ -54,7 +58,7 @@ export default function Home() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {tasks.map((task) => (
-            <TaskCard key={task._id} task={task} />
+            <TaskCard key={task._id} task={task} onDelete={handleDeleteTask} />
           ))}
         </div>
       </div>

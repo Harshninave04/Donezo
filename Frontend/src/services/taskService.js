@@ -28,6 +28,19 @@ export const fetchTasksById = async (id) => {
   }
 };
 
+export const deleteTask = async (id) => {
+  try {
+    const response = await axios.delete(`${API_BASE_URL}/tasks/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+    return response.data;
+  } catch (err) {
+    throw new Error(err.response?.data?.message || 'Failed to delete task');
+  }
+};
+
 export const createTask = async (task) => {
   try {
     const response = await axios.post(`${API_BASE_URL}/tasks`, task, {

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Pencil, Trash2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { deleteTask } from '../services/taskService';
 
 export default function TaskCard({ task, onDelete }) {
   const getPriorityClass = (priority) => {
@@ -23,6 +24,19 @@ export default function TaskCard({ task, onDelete }) {
     navigate(`/tasks/${task._id}/edit`);
   };
 
+   const handleDelete = async () => {
+     const confirmDelete = window.confirm('Are you sure you want to delete this task?');
+     if (confirmDelete) {
+       try {
+         console.log('Delete button clicked for task:', task._id);
+         await deleteTask(task._id);
+         onDelete(task._id); // Call the onDelete prop to update the task list
+       } catch (error) {
+         alert(error.message);
+       }
+     }
+   };
+
   return (
     <div className="bg-white border-2 border-black rounded-xl shadow-[0_4px_10px_rgba(0,0,0,0.1)] hover:shadow-[0_6px_15px_rgba(0,0,0,0.15)] transition-all duration-300 ease-in-out flex flex-col min-h-[200px] relative">
       <div
@@ -38,7 +52,10 @@ export default function TaskCard({ task, onDelete }) {
             <Pencil size={18} />
           </button>
           <button
-            onClick={onDelete}
+            onClick={(e) => {
+              e.stopPropagation(); // Prevent accidental duplicate calls
+              handleDelete();
+            }}
             className="p-1 hover:bg-black/20 rounded-full transition-colors duration-200"
             aria-label="Delete task">
             <Trash2 size={18} />
