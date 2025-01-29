@@ -15,7 +15,9 @@ export default function Home() {
     const getTasks = async () => {
       try {
         const data = await fetchTasks();
-        setTasks(data);
+        // Sort tasks by creation date in descending order
+        const sortedTasks = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        setTasks(sortedTasks);
       } catch (err) {
         setError(err.message);
       } finally {
