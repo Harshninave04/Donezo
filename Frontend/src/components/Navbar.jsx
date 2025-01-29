@@ -29,7 +29,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full bg-black text-white shadow-lg transition-transform duration-300 ${
+      className={`fixed top-0 left-0 w-full bg-black text-white shadow-lg transition-transform duration-300 z-50 ${
         isVisible ? 'translate-y-0' : '-translate-y-full'
       }`}>
       <Layout>
