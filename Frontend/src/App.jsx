@@ -6,6 +6,7 @@ import TaskFormPage from './pages/TaskFormPage';
 import Navbar from './components/Navbar';
 import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
+import Footer from './components/Footer';
 
 export default function App() {
   return (
@@ -39,6 +40,7 @@ export default function App() {
           }
         />
       </Routes>
+      <Footer/>
     </Router>
   );
 }

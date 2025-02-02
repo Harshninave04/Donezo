@@ -35,7 +35,7 @@ export default function Navbar() {
       <Layout>
         <div className="flex justify-between items-center py-4">
           <Link to="/" className="text-xl font-semibold hover:text-gray-300 transition-colors">
-            Task Manager
+            Donezo
           </Link>
           <div>
             {user ? (
