@@ -15,3 +15,8 @@ services:
       - "5174:5173"
     depends_on:
       - backend
+    volumes:
+      - ./frontend:/app  # Mounts the local frontend folder inside the container
+      - /app/node_modules  # Ensures node_modules from the container is used (avoid conflicts)
+    environment:
+      - CHOKIDAR_USEPOLLING=true  # Enables live reloading for file changes
