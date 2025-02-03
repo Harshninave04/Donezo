@@ -8,22 +8,26 @@ export default function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const { signup } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setLoading(true);
     try {
       await signup(username, email, password);
       navigate('/');
     } catch (err) {
       setError(err.message);
     }
+    setLoading(false);
   };
 
   return (
     <Layout>
+      {loading && <FullScreenLoader />}
       <div className="min-h-screen flex items-center justify-center">
         <div className="bg-white p-8 rounded-lg shadow-md w-96">
           <h2 className="text-2xl font-semibold mb-6 text-center">Signup</h2>
@@ -41,6 +45,7 @@ export default function Signup() {
                 onChange={(e) => setUsername(e.target.value)}
                 className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-black"
                 required
+                disabled={loading}
               />
             </div>
             <div className="mb-4">
@@ -51,6 +56,7 @@ export default function Signup() {
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-black"
                 required
+                disabled={loading}
               />
             </div>
             <div className="mb-6">
@@ -61,11 +67,13 @@ export default function Signup() {
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-black"
                 required
+                disabled={loading}
               />
             </div>
             <button
               type="submit"
-              className="w-full bg-black text-white p-2 rounded hover:bg-gray-800 transition-colors">
+              className="w-full bg-black text-white p-2 rounded hover:bg-gray-800 transition-colors"
+              disabled={loading}>
               Signup
             </button>
           </form>
@@ -80,5 +88,13 @@ export default function Signup() {
         </div>
       </div>
     </Layout>
+  );
+}
+// Full-screen loader component
+function FullScreenLoader() {
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-75 z-50">
+      <div className="w-16 h-16 border-4 border-black border-t-transparent rounded-full animate-spin"></div>
+    </div>
   );
 }
